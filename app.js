@@ -7,7 +7,7 @@ const AfricasTalking = require('africastalking');
 // Initialize Africa's Talking
 const africastalking = AfricasTalking({
     apiKey: 'atsk_29f49851fb21f1c3d8a299998e06a2352465cbbd61831469769dec6b3885591301974bfe',
-    username: 'Sandbox',
+    username: 'sandbox',
 });
 
 // Express app
@@ -260,6 +260,7 @@ app.post('/ussd', (req, res) => {
     res.send(response);
 });
 
+
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
@@ -285,3 +286,9 @@ async function saveFarmerData(session) {
         },
     });
 }
+const port = 3000;
+app.listen(port, () => {
+    console.log(`App running on port: ${port}`);
+
+});
+
