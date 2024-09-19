@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Farmer {
+  id                        Int      @id @default(autoincrement())
+  phoneNumber               String
+  totalFarmArea             Float
+  primaryCrops              String[]
+  seedSource                String
+  pestTreatmentSource       String
+  harvestPeriod             String
+  sellingMarkets            String
+  cropsSoldPercentage       Float
+  byProductsDestination     String
+  rawMaterialsSource        String
+  distributors              String[]
+  capitalRequired           Float
+  climateControlInitiatives String[]
+  riskManagement            String[]
+  factorsAffectingHarvest   String[]
+  farmLocation              String
+  createdAt                 DateTime @default(now())
+  updatedAt                 DateTime @updatedAt
+}
