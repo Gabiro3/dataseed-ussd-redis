@@ -3,6 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const AfricasTalking = require("africastalking");
+const cors = require("cors");
+app.use(cors());
 
 // Initialize Africa's Talking
 const africastalking = AfricasTalking({
