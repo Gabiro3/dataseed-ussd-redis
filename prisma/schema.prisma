@@ -15,23 +15,16 @@ datasource db {
 }
 
 model Farmer {
-  id                        Int      @id @default(autoincrement())
-  phoneNumber               String
-  totalFarmArea             Float
-  primaryCrops              String[]
-  seedSource                String
-  pestTreatmentSource       String
-  harvestPeriod             String
-  sellingMarkets            String
-  cropsSoldPercentage       Float
-  byProductsDestination     String
-  rawMaterialsSource        String
-  distributors              String[]
-  capitalRequired           Float
-  climateControlInitiatives String[]
-  riskManagement            String[]
-  factorsAffectingHarvest   String[]
-  farmLocation              String
-  createdAt                 DateTime @default(now())
-  updatedAt                 DateTime @updatedAt
+  id                Int      @id @default(autoincrement())
+  phoneNumber       String
+  nationalID        String
+  totalFarmArea     Float
+  capitalRequired   Float
+  pestTreatmentSource String
+  sellingMarkets    String
+  farmLocation      String
+  yieldSoldPercentage Float
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
+
