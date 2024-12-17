@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const AfricasTalking = require("africastalking");
+const { Redis } = require("@upstash/redis");
 
 // Initialize Africa's Talking
 const africastalking = AfricasTalking({
@@ -10,6 +11,10 @@ const africastalking = AfricasTalking({
   username: "sandbox",
 });
 
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_URL,
+  token: process.env.UPSTASH_REDIS_TOKEN,
+});
 // Express app
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -21,16 +26,18 @@ function extractInput(userResponse) {
 }
 
 // USSD route
-app.post("/ussd", (req, res) => {
+app.post("/ussd", async (req, res) => {
   let { sessionId, serviceCode, phoneNumber, text } = req.body;
   let response = "";
+  let session = await redis.get(sessionId);
+  session = session ? JSON.parse(session): { stage : 0, phoneNumber};
+
 
   // Initialize session if it doesn't exist
   if (!sessions[sessionId]) {
     sessions[sessionId] = { stage: 0, phoneNumber };
   }
 
-  let session = sessions[sessionId];
   let userResponse = (text || "").trim("*");
 
   // USSD navigation logic
